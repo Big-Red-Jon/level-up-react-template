@@ -13,7 +13,7 @@ export const GameForm = () => {
       */
     const [currentGame, setCurrentGame] = useState({
         skillLevel: 1,
-        numberOfPlayers: 0,
+        numberOfPlayers: 1,
         title: "",
         maker: "",
         gameTypeId: 0,
@@ -83,6 +83,61 @@ export const GameForm = () => {
                         value={currentGame.title}
                         onChange={changeGameTitleState}
                     />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="numberOfPLayers">Number of Players:</label>
+                    <input
+                        type="text"
+                        pattern="[0-9]*"
+                        name="numberOfPlayers"
+                        required
+                        autoFocus
+                        className="form-control"
+                        value={currentGame.numberOfPlayers}
+                        onChange={changeGamePlayersState}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="maker">Maker: </label>
+                    <input
+                        type="text"
+                        name="maker"
+                        required
+                        autoFocus
+                        className="form-control"
+                        value={currentGame.maker}
+                        onChange={changeGameMakerState}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="skillLevel">Skill Level:</label>
+                    <input
+                        type="text"
+                        pattern="[0-9]*"
+                        name="skillLevel"
+                        required
+                        autoFocus
+                        className="form-control"
+                        value={currentGame.skillLevel}
+                        onChange={changeGameSkillLevelState}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="gameTypeId">Game Type</label> <br />
+                    <select onChange={changeGameTypeState}
+                        defaultValue={currentGame.gameTypeId} >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
                 </div>
             </fieldset>
 

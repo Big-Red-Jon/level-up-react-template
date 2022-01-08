@@ -18,18 +18,18 @@ export const GameProvider = (props) => {
     };
 
 
-    const createGame = (game) => {
-        return fetch("http://localhost:8000/games", {
-            method: "Post",
+    const createGame = (newGame) => {
+        return fetch(`http://localhost:8000/games`, {
+            method: "POST",
             headers: {
                 Authorization: `Token ${localStorage.getItem("lu_token")}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(game)
+            body: JSON.stringify(newGame)
         })
-            // .then((response) => response.json())
-            .then(getGames);
-    };
+            .then((response) => response.json())
+            .then(getGames)
+    }
 
     const getGameTypes = () => {
         return fetch("http://localhost:8000/games", {
