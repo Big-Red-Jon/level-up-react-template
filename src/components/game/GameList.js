@@ -42,7 +42,7 @@ export const GameList = (props) => {
             <div>
                 <button variant="" size="" className="" onClick={() => history.push("/games/new")}>
                     Add New Game
-                </button>{' '}
+                </button>
             </div>
         </>
     );
