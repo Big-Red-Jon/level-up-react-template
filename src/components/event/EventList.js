@@ -1,21 +1,22 @@
 import React, { useContext, useEffect } from "react";
 import { EventContext } from "./EventProvider.js";
-// import { ProfileContext } from "../profile/ProfileProvider.js";
+import { GamerContext } from "../gamer/GamerProvider.js";
 import { useHistory } from "react-router-dom";
 import "./Events.css";
 
 export const EventList = () => {
     const { events, getEvents, joinEvent } = useContext(EventContext);
-    // const { profile, getProfiles } = useContext(ProfileContext);
+    const { currentGamer, getCurrentGamer } = useContext(GamerContext);
+
     const history = useHistory();
 
     useEffect(() => {
         getEvents();
+        getCurrentGamer();
     }, []);
 
-    // useEffect(() => {
-    //     getProfiles();
-    // }, []);
+
+
 
     return (
         <article className="events">
@@ -25,14 +26,13 @@ export const EventList = () => {
                     className="btn btn-2 btn-sep icon-create"
                     onClick={() => {
                         history.push({ pathname: "/events/new" });
-                    }}
-                >
+                    }}>
                     Schedule New Event
                 </button>
             </header>
             {/* Profile is a many to many gamer. The gamer will be the profile. */}
             {events.map((event) => {
-                const attending = profile.events.some((evt) => evt.id === event.id);
+                const attending = currentGamer.attending.some((evt) => evt.id === event.id);
                 return (
                     <section key={event.id} className="registration">
                         <div className="registration__game">{event.game.title}</div>

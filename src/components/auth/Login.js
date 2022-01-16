@@ -1,13 +1,14 @@
-import React, { useRef } from "react"
+import React, { useRef, useContext } from "react"
 import { Link, useHistory } from "react-router-dom"
 import "./Auth.css"
-
+import { GamerContext } from "../gamer/GamerProvider"
 
 export const Login = () => {
     const username = useRef()
     const password = useRef()
     const invalidDialog = useRef()
     const history = useHistory()
+    const { getCurrentGamer } = useContext(GamerContext)
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -27,6 +28,7 @@ export const Login = () => {
             .then(res => {
                 if ("valid" in res && res.valid && "token" in res) {
                     localStorage.setItem("lu_token", res.token)
+                    getCurrentGamer()
                     history.push("/")
                 }
                 else {
