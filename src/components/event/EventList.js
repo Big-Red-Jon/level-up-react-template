@@ -1,22 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { EventContext } from "./EventProvider.js";
-import { GamerContext } from "../gamer/GamerProvider.js";
 import { useHistory } from "react-router-dom";
 import "./Events.css";
 
 export const EventList = () => {
-    const { events, getEvents, joinEvent } = useContext(EventContext);
-    const { currentGamer, getCurrentGamer } = useContext(GamerContext);
-
     const history = useHistory();
+    const { events, getEvents, joinEvent, leaveEvent } = useContext(EventContext);
 
     useEffect(() => {
         getEvents();
-        getCurrentGamer();
     }, []);
-
-
-
 
     return (
         <article className="events">
@@ -26,13 +19,12 @@ export const EventList = () => {
                     className="btn btn-2 btn-sep icon-create"
                     onClick={() => {
                         history.push({ pathname: "/events/new" });
-                    }}>
+                    }}
+                >
                     Schedule New Event
                 </button>
             </header>
-            {/* Profile is a many to many gamer. The gamer will be the profile. */}
             {events.map((event) => {
-                const attending = currentGamer.attending.some((evt) => evt.id === event.id);
                 return (
                     <section key={event.id} className="registration">
                         <div className="registration__game">{event.game.title}</div>
@@ -40,9 +32,18 @@ export const EventList = () => {
                         <div>
                             {event.date} @ {event.time}
                         </div>
-                        <button className="btn btn-2" onClick={() => joinEvent(event.id)}>
-                            Join
-                        </button>
+                        {event.joined ? (
+                            <button
+                                className="btn btn-3"
+                                onClick={() => leaveEvent(event.id)}
+                            >
+                                Leave
+                            </button>
+                        ) : (
+                            <button className="btn btn-2" onClick={() => joinEvent(event.id)}>
+                                Join
+                            </button>
+                        )}
                     </section>
                 );
             })}
@@ -54,10 +55,61 @@ export const EventList = () => {
 
 
 
+//Before Chapter 12 Below with Profile Fixes
+
+// import React, { useContext, useEffect } from "react";
+// import { EventContext } from "./EventProvider.js";
+// import { GamerContext } from "../gamer/GamerProvider.js";
+// import { useHistory } from "react-router-dom";
+// import "./Events.css";
+
+// export const EventList = () => {
+//     const { events, getEvents, joinEvent } = useContext(EventContext);
+//     const { currentGamer, getCurrentGamer } = useContext(GamerContext);
+
+//     const history = useHistory();
+
+//     useEffect(() => {
+//         getEvents();
+//         getCurrentGamer();
+//     }, []);
 
 
 
 
+//     return (
+//         <article className="events">
+//             <header className="events__header">
+//                 <h1>Level Up Game Events</h1>
+//                 <button
+//                     className="btn btn-2 btn-sep icon-create"
+//                     onClick={() => {
+//                         history.push({ pathname: "/events/new" });
+//                     }}>
+//                     Schedule New Event
+//                 </button>
+//             </header>
+//             {/* Profile is a many to many gamer. The gamer will be the profile. */}
+//             {events.map((event) => {
+//                 const attending = currentGamer.attending.some((evt) => evt.id === event.id);
+//                 return (
+//                     <section key={event.id} className="registration">
+//                         <div className="registration__game">{event.game.title}</div>
+//                         <div>{event.description}</div>
+//                         <div>
+//                             {event.date} @ {event.time}
+//                         </div>
+//                         <button className="btn btn-2" onClick={() => joinEvent(event.id)}>
+//                             Join
+//                         </button>
+//                     </section>
+//                 );
+//             })}
+//         </article>
+//     );
+// };
+
+//Before Chapter 11 below
 
 
 //     return (
